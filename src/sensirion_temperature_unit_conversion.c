@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Sensirion AG
+ * Copyright (c) 2020, Sensirion AG
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,42 +29,19 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdio.h>  // printf
+#include "sensirion_temperature_unit_conversion.h"
 
-/* TO USE CONSOLE OUTPUT (printf) YOU MAY NEED TO ADAPT THE
- * INCLUDE ABOVE OR DEFINE IT ACCORDING TO YOUR PLATFORM.
- * #define printf(...)
- */
+int32_t sensirion_celsius_to_fahrenheit(int32_t temperature_milli_celsius) {
+    /* Conversion equivalent to: temperature_milli_celsius * 9.0/5.0 + 32000
+     * Fixed Point: 9.0/5.0 * 2^12 = 7372.8
+     * Using int32_t sized two's complement for negatives */
+    return ((temperature_milli_celsius * 7373) >> 12) + 32000;
+}
 
-#include "shtc1.h"
-
-int main(void) {
-    /* Initialize the i2c bus for the current platform */
-    sensirion_i2c_init();
-
-    /* Busy loop for initialization, because the main loop does not work without
-     * a sensor.
-     */
-    while (shtc1_probe() != STATUS_OK) {
-        printf("SHT sensor probing failed\n");
-    }
-    printf("SHT sensor probing successful\n");
-
-    while (1) {
-        int32_t temperature, humidity;
-        /* Measure temperature and relative humidity and store into variables
-         * temperature, humidity (each output multiplied by 1000).
-         */
-        int8_t ret = shtc1_measure_blocking_read(&temperature, &humidity);
-        if (ret == STATUS_OK) {
-            printf("measured temperature: %0.2f degreeCelsius, "
-                   "measured humidity: %0.2f percentRH\n",
-                   temperature / 1000.0f, humidity / 1000.0f);
-        } else {
-            printf("error reading measurement\n");
-        }
-
-        sensirion_sleep_usec(1000000);
-    }
-    return 0;
+int32_t sensirion_fahrenheit_to_celsius(int32_t temperature_milli_fahrenheit) {
+    /* Conversion equivalent to:
+     * (temperature_milli_fahrenheit - 32000) * 5.0/9.0
+     * Fixed Point: 5.0/9.0 * 2^10 = 568.9
+     * Using int32_t sized two's complement for negatives */
+    return ((temperature_milli_fahrenheit - 32000) * 569) >> 10;
 }

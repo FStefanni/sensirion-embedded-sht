@@ -29,42 +29,32 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "sht4x.h"
-#include <stdio.h>  // printf
+#ifndef HUMIDITY_CONVERSION_H
+#define HUMIDITY_CONVERSION_H
+#include "sensirion_arch_config.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
- * TO USE CONSOLE OUTPUT (PRINTF) AND WAIT (SLEEP) PLEASE ADAPT THEM TO YOUR
- * PLATFORM
+ * sensirion_calc_absolute_humidity() - Calculate absolute humidity from
+ *                                      temperature and relative humidity
+ *
+ * @param temperature_milli_celsius The temperature measurement in milli Degree
+ *                                  Celsius, i.e. degree celsius multiplied by
+ *                                  1000.
+ * @param humidity_milli_percent    The relative humidity measurement in
+ *                                  milli Percent, i.e.  percent relative
+ *                                  humidity, multiplied by 1000 (0-100000)
+ *
+ * @return                          The absolute humidity in mg/m^3
  */
+uint32_t sensirion_calc_absolute_humidity(int32_t temperature_milli_celsius,
+                                          int32_t humidity_milli_percent);
 
-int main(void) {
-    /* Initialize the i2c bus for the current platform */
-    sensirion_i2c_init();
-
-    /* Busy loop for initialization, because the main loop does not work without
-     * a sensor.
-     */
-    while (sht4x_probe() != STATUS_OK) {
-        printf("SHT sensor probing failed\n");
-        sensirion_sleep_usec(1000000); /* sleep 1s */
-    }
-    printf("SHT sensor probing successful\n");
-
-    while (1) {
-        int32_t temperature, humidity;
-        /* Measure temperature and relative humidity and store into variables
-         * temperature, humidity (each output multiplied by 1000).
-         */
-        int8_t ret = sht4x_measure_blocking_read(&temperature, &humidity);
-        if (ret == STATUS_OK) {
-            printf("measured temperature: %0.2f degreeCelsius, "
-                   "measured humidity: %0.2f percentRH\n",
-                   temperature / 1000.0f, humidity / 1000.0f);
-        } else {
-            printf("error reading measurement\n");
-        }
-
-        sensirion_sleep_usec(1000000); /* sleep 1s */
-    }
-    return 0;
+#ifdef __cplusplus
 }
+#endif
+
+#endif /* HUMIDITY_CONVERSION_H */
