@@ -1,4 +1,4 @@
-# SENSIRION EMBEDDED SPS
+# SENSIRION EMBEDDED SHT
 
 This library is a simple re-packaging of the
 [Sensirion Embedded SHT library](https://github.com/Sensirion/embedded-sht)
