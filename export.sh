@@ -13,13 +13,14 @@ cp utils/sensirion_humidity_conversion.c utils/sensirion_humidity_conversion.h u
 rm -fr \
     .circleci \
     .github \
+    embedded-common \
     sample-projects \
     sht-common \
     sht3x \
     sht4x \
     shtc1 \
     tests \
-    utilities \
+    utils \
     .clang-format \
     .gitlab-ci.yml \
     .gitmodules \
