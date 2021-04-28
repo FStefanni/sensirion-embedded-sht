@@ -20,7 +20,7 @@ rm -fr \
     sht4x \
     shtc1 \
     tests \
-    utilities \
+    utils \
     .clang-format \
     .gitlab-ci.yml \
     .gitmodules \
