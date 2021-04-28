@@ -39,7 +39,6 @@
  */
 
 #include "sht4x.h"
-#include "sensirion_arch_config.h"
 #include "sensirion_common.h"
 #include "sensirion_i2c.h"
 

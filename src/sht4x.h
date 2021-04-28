@@ -41,7 +41,6 @@
 #ifndef SHT4X_H
 #define SHT4X_H
 
-#include "sensirion_arch_config.h"
 #include "sensirion_i2c.h"
 #include "sht_git_version.h"
 

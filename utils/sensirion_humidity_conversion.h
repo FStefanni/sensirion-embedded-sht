@@ -31,7 +31,6 @@
 
 #ifndef HUMIDITY_CONVERSION_H
 #define HUMIDITY_CONVERSION_H
-#include "sensirion_arch_config.h"
 
 #ifdef __cplusplus
 extern "C" {
