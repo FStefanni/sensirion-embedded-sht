@@ -32,6 +32,7 @@
 #ifndef SENSIRION_TEMPERATURE_UNIT_CONVERSION_H
 #define SENSIRION_TEMPERATURE_UNIT_CONVERSION_H
 
+#include <stdint.h>
 #ifdef __cplusplus
 extern "C" {
 #endif

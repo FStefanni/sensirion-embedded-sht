@@ -32,6 +32,7 @@
 #ifndef HUMIDITY_CONVERSION_H
 #define HUMIDITY_CONVERSION_H
 
+#include <stdint.h>
 #ifdef __cplusplus
 extern "C" {
 #endif
