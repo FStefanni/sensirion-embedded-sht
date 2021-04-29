@@ -43,6 +43,7 @@
 #include "shtc1.h"
 #include "sensirion_common.h"
 #include "sensirion_i2c.h"
+#include <sensirion-embedded-common.h>
 
 /* all measurement commands return T (CRC) RH (CRC) */
 #if USE_SENSIRION_CLOCK_STRETCHING
